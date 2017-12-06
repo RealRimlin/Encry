@@ -5,3 +5,5 @@
 /target/
 /.idea/
 /project/
+/src/main/scala/scorex/
+/src/main/scala/ergoplatformTest
