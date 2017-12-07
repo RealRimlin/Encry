@@ -24,10 +24,10 @@ import scala.util.Try
   * a transaction set (see https://eprint.iacr.org/2016/994 for details).
   */
 
-trait EncryMinimalState[EMS <: MinimalState[EncryPersistentNodeViewModifier, EMS]]
-  extends MinimalState[EncryPersistentNodeViewModifier, EMS] with ScorexLogging {
+trait EncryMinimalState[S <: MinimalState[EncryPersistentNodeViewModifier, S]]
+  extends MinimalState[EncryPersistentNodeViewModifier, S] with ScorexLogging {
 
-  self: EMS =>
+  self: S =>
 
   // Extracts ordered sequence of operations to apply on UNXO (current state) from the set of transactions.
   def boxChanges(txs: Seq[EncryBaseTransaction]) : BoxStateChanges[PublicKey25519Proposition.type,
@@ -39,9 +39,9 @@ trait EncryMinimalState[EMS <: MinimalState[EncryPersistentNodeViewModifier, EMS
 
   override def version: VersionTag
 
-  override def applyModifier(mod: EncryPersistentNodeViewModifier): Try[EMS]
+  override def applyModifier(mod: EncryPersistentNodeViewModifier): Try[S]
 
-  override def rollbackTo(version: VersionTag): Try[EMS]
+  override def rollbackTo(version: VersionTag): Try[S]
 
   def rollbackVersions: Iterable[VersionTag]
 

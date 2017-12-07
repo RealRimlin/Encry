@@ -22,8 +22,8 @@ case class SimpleBlock(override val parentId: BlockId,
                        generationSignature: GenerationSignature,
                        baseTarget: BaseTarget,
                        generator: PublicKey25519Proposition,
-                       override val transactions: Seq[SimpleTransaction])
-  extends Block[PublicKey25519Proposition, SimpleTransaction]{
+                       override val transactions: Seq[EncryBaseTransaction])
+  extends Block[PublicKey25519Proposition, EncryBaseTransaction]{
 
   override type M = SimpleBlock
 
