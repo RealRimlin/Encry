@@ -1,17 +1,18 @@
 package encry.nodeView
 
-import encry.SimpleSyncInfo
-import encry.transaction.{SimpleBlock, SimpleTransaction}
+import encry.{SimpleBlockchain, SimpleSyncInfo}
+import encry.transaction.{EncryBaseTransaction, SimpleBlock}
 import scorex.core.settings.{NetworkSettings, ScorexSettings}
 import scorex.core.transaction.box.proposition.PublicKey25519Proposition
 import scorex.core.{ModifierId, ModifierTypeId, NodeViewHolder, NodeViewModifier}
 
 class SimpleNodeViewHolder(settings: ScorexSettings)
-  extends NodeViewHolder[PublicKey25519Proposition, SimpleTransaction, SimpleBlock] {
+  extends NodeViewHolder[PublicKey25519Proposition, EncryBaseTransaction, SimpleBlock] {
 
   override val networkChunkSize: Int = settings.network.networkChunkSize
 
   override type SI = SimpleSyncInfo
-  override type HIS = this.type
+  override type HIS = SimpleBlockchain
+
 
 }

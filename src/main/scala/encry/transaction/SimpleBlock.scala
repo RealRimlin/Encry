@@ -54,7 +54,7 @@ object SimpleBlock {
 }
 
 object SimpleBlockCompanion extends Serializer[SimpleBlock] {
-  import SimplePaymentCompanion.TransactionLength
+  import EncryTransactionSerializer.TransactionLength
 
   def messageToSign(block: SimpleBlock): Array[Byte] = {
     block.parentId ++
@@ -93,7 +93,7 @@ object SimpleBlockCompanion extends Serializer[SimpleBlock] {
     val s2 = s1 + 36
     val txs = (0 until cnt) map { i =>
       val bt = bytes.slice(s2 + TransactionLength * i, s2 + TransactionLength * (i + 1))
-      SimplePaymentCompanion.parseBytes(bt).get
+      EncryTransactionSerializer.parseBytes(bt).get
     }
     SimpleBlock(ModifierId @@ parentId, timestamp, generationSignature, baseTarget, generator, txs)
   }

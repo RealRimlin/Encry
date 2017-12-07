@@ -41,6 +41,8 @@ object PublicKey25519NoncedBox {
 
 object PublicKey25519NoncedBoxSerializer extends Serializer[PublicKey25519NoncedBox] {
 
+  val length: Int = 32 + 8 + 8
+
   override def toBytes(obj: PublicKey25519NoncedBox): Array[Byte] =
     obj.proposition.pubKeyBytes ++
       Longs.toByteArray(obj.nonce) ++

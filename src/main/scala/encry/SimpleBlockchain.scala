@@ -1,7 +1,7 @@
 package encry
 
 import encry.SimpleBlockchain.Height
-import encry.transaction.{SimpleBlock, SimpleTransaction}
+import encry.transaction.{SimpleBlock, EncryBaseTransaction}
 import scorex.core.consensus.History.{HistoryComparisonResult, ProgressInfo}
 import scorex.core.{ModifierId, ModifierTypeId}
 import scorex.core.consensus.{BlockChain, History, ModifierSemanticValidity}
@@ -11,7 +11,7 @@ import scorex.crypto.encode.Base58
 import scala.util.{Failure, Success, Try}
 
 class SimpleBlockchain(blockIds: Map[Height, ModifierId] = Map(), blocks: Map[ModifierId, SimpleBlock] = Map())
-  extends BlockChain[PublicKey25519Proposition, SimpleTransaction, SimpleBlock, SimpleSyncInfo, SimpleBlockchain] {
+  extends BlockChain[PublicKey25519Proposition, EncryBaseTransaction, SimpleBlock, SimpleSyncInfo, SimpleBlockchain] {
 
   import BlockChain.Score
 
@@ -60,7 +60,7 @@ class SimpleBlockchain(blockIds: Map[Height, ModifierId] = Map(), blocks: Map[Mo
   override def height(): Height = blocks.size
 
   override def heightOf(blockId: ModifierId): Option[Height] =
-    blockIds.find(_._2 sameElements blockId).map(_._1)
+    blockIds.find(_._2.sameElements(blockId)).map(_._1)
 
   override def blockAt(height: Height): Option[SimpleBlock] =
     blockIds.get(height).flatMap(blocks.get)
